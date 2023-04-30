@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  mysql:
+    image: mysql
+    restart: unless-stopped
+    container_name: mysqldb
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - net-db
+    ports:
+      - 3306:3306
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    container_name: db-adminer
+    networks:
+      - net-db
+    ports:
+      - 9085:8080
+
+networks:
+  net-db:
+    name: net-db
+    driver: bridge
+  net-elk:
+    name: net-elk
+    driver: bridge
+  net-message-queue:
+    name: net-message-queue
+    driver: bridge
+  net-app:
+    name: net-app
+    driver: bridge

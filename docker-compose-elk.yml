@@ -1,5 +1,4 @@
-version: '3.6'
-
+version: '3.9'
 services:
   elasticsearch:
     container_name: els
@@ -8,14 +7,14 @@ services:
     ports:
       - 9200:9200
     volumes:
-      - elasticsearch-data:/usr/share/elasticsearch/data
+      - ./elasticsearch-data/data:/usr/share/elasticsearch/data
     environment: 
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xmx256m -Xms256m
       - discovery.type=single-node
-    #restart: always
+    restart: unless-stopped
     networks:
-      - elastic
+      - net-elk
   kibana:
     container_name: kibana
     #image: docker.elastic.co/kibana/kibana:8.7.0-arm64
@@ -26,37 +25,20 @@ services:
       - elasticsearch
     environment:
       - ELASTICSEARCH_URL=http://localhost:9200
-    #restart: always
+    restart: unless-stopped
     networks:
-      - elastic
-
-  wiremock:
-    container_name: wiremock
-    image: wiremock/wiremock
-    ports:
-      - 9880:8080
-    volumes:
-      - wiremock-data:/home/wiremock
-    depends_on:
-      - elasticsearch
-    #restart: always
-    networks:
-      - elastic
+      - net-elk
 
 networks:
-  elastic:
+  net-db:
+    name: net-db
     driver: bridge
-
-volumes:
-  elasticsearch-data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./elasticsearch-data
-  wiremock-data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./wiremock-data
+  net-elk:
+    name: net-elk
+    driver: bridge
+  net-message-queue:
+    name: net-message-queue
+    driver: bridge
+  net-app:
+    name: net-app
+    driver: bridge

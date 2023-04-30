@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    restart: unless-stopped
+    networks:
+      - net-app
+    ports:
+      - 9080:80
+      - 9443:443
+    volumes:
+      - ./nginx-data/config:/etc/nginx/conf.d
+      - ./nginx-data/html:/usr/share/nginx/html
+      - ./nginx-data/ssl:/root/ssl/official
+      - ./nginx-data/log:/var/log/nginx
+
+networks:
+  net-db:
+    name: net-db
+    driver: bridge
+  net-elk:
+    name: net-elk
+    driver: bridge
+  net-message-queue:
+    name: net-message-queue
+    driver: bridge
+  net-app:
+    name: net-app
+    driver: bridge

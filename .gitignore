@@ -1,2 +1,10 @@
 /elasticsearch-data
 /wiremock-data
+/nginx-data
+/postgres-data
+/mysql-data
+/mongodb-data
+/redis-data
+/rabbitmq-data
+/pgadmin4-data
+/portainer-data

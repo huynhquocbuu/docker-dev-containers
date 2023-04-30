@@ -1,0 +1,67 @@
+version: '3.9'
+services:
+  postgresdb:
+    image: postgres
+    restart: unless-stopped
+    container_name: postgresdb
+    environment:
+      POSTGRES_USER: ${POSTGRESQL_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./postgres-data/data:/var/lib/postgresql/data
+    networks:
+      - net-db
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: huynhquocbuu@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+       - ./pgadmin4-data:/var/lib/pgadmin
+    ports:
+      - 9082:80
+    networks:
+      - net-db
+    restart: unless-stopped
+
+  keycloak:
+    image: jboss/keycloak
+    restart: unless-stopped
+    depends_on:
+      - postgresdb
+    container_name: jboss_keycloak
+    environment:
+      DB_VENDOR: postgres
+      DB_ADDR: postgresdb
+      DB_DATABASE: ${KEYCLOAK_DB}
+      DB_USER: ${POSTGRESQL_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+    ports:
+      - 9086:8080
+      - 8787:8787
+    volumes:
+        - ./keycloak/import:/temp
+        - ./keycloak/themes:/opt/jboss/keycloak/themes
+    networks:
+      - net-db
+
+networks:
+  net-db:
+    name: net-db
+    driver: bridge
+  net-elk:
+    name: net-elk
+    driver: bridge
+  net-message-queue:
+    name: net-message-queue
+    driver: bridge
+  net-app:
+    name: net-app
+    driver: bridge

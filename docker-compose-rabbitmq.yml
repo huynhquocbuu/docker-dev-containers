@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: unless-stopped
+    container_name: rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./rabbitmq-data/data:/var/lib/rabbitmq
+        - ./rabbitmq-data/log:/var/log/rabbitmq
+    networks:
+        - net-message-queue
+
+networks:
+  net-db:
+    name: net-db
+    driver: bridge
+  net-elk:
+    name: net-elk
+    driver: bridge
+  net-message-queue:
+    name: net-message-queue
+    driver: bridge
+  net-app:
+    name: net-app
+    driver: bridge

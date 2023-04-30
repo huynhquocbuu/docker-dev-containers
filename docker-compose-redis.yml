@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  redis:
+    image: bitnami/redis
+    container_name: redis
+    restart: unless-stopped
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./redis-data/data:/bitnami/redis/data
+    ports:
+      - 7000:7000
+    networks:
+      - net-db
+
+networks:
+  net-db:
+    name: net-db
+    driver: bridge
+  net-elk:
+    name: net-elk
+    driver: bridge
+  net-message-queue:
+    name: net-message-queue
+    driver: bridge
+  net-app:
+    name: net-app
+    driver: bridge

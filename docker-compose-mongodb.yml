@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+    volumes:
+      # seeding scripts
+      - ./mongodb-data/mongo-entrypoint-initdb:/docker-entrypoint-initdb.d
+      # named volumes
+      - ./mongodb-data/db:/data/db
+      - ./mongodb-data/configdb:/data/configdb
+    networks:
+      - net-db
+
+networks:
+  net-db:
+    name: net-db
+    driver: bridge
+  net-elk:
+    name: net-elk
+    driver: bridge
+  net-message-queue:
+    name: net-message-queue
+    driver: bridge
+  net-app:
+    name: net-app
+    driver: bridge
