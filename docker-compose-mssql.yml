@@ -1,17 +1,20 @@
 version: '3.9'
 services:
-  redis:
-    image: bitnami/redis
-    container_name: redis
+  mssql:
+    image: mcr.microsoft.com/mssql/server
     #restart: unless-stopped
+    container_name: mssqldb
+    hostname: mssql
     environment:
-      - ALLOW_EMPTY_PASSWORD=yes
+      SA_PASSWORD: ${DB_PASSWORD}
+      ACCEPT_EULA: Y
     volumes:
-      - ./redis-data/data:/bitnami/redis/data
-    ports:
-      - 7000:7000
+      - ./mssql-data/data:/var/opt/mssql/data
+      - ./mssql-data/log:/var/opt/mssql/log
     networks:
       - net-db
+    ports:
+      - 1433:1433
 
 networks:
   net-db:

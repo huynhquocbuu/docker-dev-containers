@@ -2,7 +2,7 @@ version: '3.9'
 services:
   mysql:
     image: mysql
-    restart: unless-stopped
+    #restart: unless-stopped
     container_name: mysqldb
     volumes:
       - ./mysql-data:/var/lib/mysql
@@ -15,7 +15,7 @@ services:
 
   adminer:
     image: adminer
-    restart: unless-stopped
+    #restart: unless-stopped
     container_name: db-adminer
     networks:
       - net-db

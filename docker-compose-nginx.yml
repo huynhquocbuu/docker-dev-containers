@@ -3,7 +3,7 @@ services:
   nginx:
     image: nginx:stable-alpine
     container_name: nginx
-    restart: unless-stopped
+    #restart: unless-stopped
     networks:
       - net-app
     ports:

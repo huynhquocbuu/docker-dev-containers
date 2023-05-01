@@ -2,7 +2,7 @@ version: '3.9'
 services:
   mongodb:
     image: mongo
-    restart: unless-stopped
+    #restart: unless-stopped
     container_name: mongodb
     ports:
       - 27017:27017

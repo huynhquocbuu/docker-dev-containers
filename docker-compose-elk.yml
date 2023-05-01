@@ -12,7 +12,7 @@ services:
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xmx256m -Xms256m
       - discovery.type=single-node
-    restart: unless-stopped
+    #restart: unless-stopped
     networks:
       - net-elk
   kibana:
@@ -25,7 +25,7 @@ services:
       - elasticsearch
     environment:
       - ELASTICSEARCH_URL=http://localhost:9200
-    restart: unless-stopped
+    #restart: unless-stopped
     networks:
       - net-elk
 
