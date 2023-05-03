@@ -1,16 +1,15 @@
 version: '3.9'
 services:
-  mssql:
-    image: mcr.microsoft.com/mssql/server
+  azure-sql-edge:
+    image: mcr.microsoft.com/azure-sql-edge
     #restart: unless-stopped
     container_name: mssqldb
-    hostname: mssql
     environment:
       SA_PASSWORD: ${DB_PASSWORD}
       ACCEPT_EULA: Y
     volumes:
-      - ./mssql-data/data:/var/opt/mssql/data
-      - ./mssql-data/log:/var/opt/mssql/log
+      - ./azure-sql-edge/data:/var/opt/mssql/data
+      - ./azure-sql-edge/log:/var/opt/mssql/log
     networks:
       - net-db
     ports:
