@@ -48,8 +48,8 @@ services:
       - 9086:8080
       #- 8787:8787
     volumes:
-        #- ./keycloak/import:/temp
-        - ./keycloak/themes:/opt/bitnami/keycloak/themes
+        #- ./keycloak-data/import:/temp
+        - ./keycloak-data/themes:/opt/bitnami/keycloak/themes
     networks:
       - net-db
 
