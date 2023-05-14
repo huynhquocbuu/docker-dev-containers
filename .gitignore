@@ -8,5 +8,6 @@
 /rabbitmq-data
 /pgadmin4-data
 /portainer-data
-/azure-sql-edge
+/azure-edge-data
 /keycloak-data
+/maria-data
