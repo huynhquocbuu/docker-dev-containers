@@ -3,7 +3,7 @@
 /nginx-data
 /postgres-data
 /mysql-data
-/mongodb-data
+/mongo-data
 /redis-data
 /rabbitmq-data
 /pgadmin4-data
