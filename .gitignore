@@ -9,3 +9,5 @@
 /pgadmin4-data
 /portainer-data
 /mssql-data
+/azure-edge-db
+/keycloak

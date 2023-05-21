@@ -1,34 +1,6 @@
 version: '3.9'
 services:
-  postgresdb:
-    image: postgres
-    #restart: unless-stopped
-    container_name: postgresdb
-    environment:
-      POSTGRES_USER: ${POSTGRESQL_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - ./postgres-data/data:/var/lib/postgresql/data
-    networks:
-      - net-db
-    ports:
-      - 5432:5432
-
-  pgadmin:
-    container_name: pgadmin4
-    image: dpage/pgadmin4
-    #restart: unless-stopped
-    environment:
-      PGADMIN_DEFAULT_EMAIL: huynhquocbuu@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: ${DB_PASSWORD}
-    volumes:
-       - ./pgadmin4-data:/var/lib/pgadmin
-    ports:
-      - 9082:80
-    networks:
-      - net-db
-      
+  
   keycloak:
     image: jboss/keycloak
     #restart: unless-stopped

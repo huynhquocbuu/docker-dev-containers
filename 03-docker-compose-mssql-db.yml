@@ -1,16 +1,16 @@
 version: '3.9'
-services:
-  mssql:
+services:  
+  mssqldb:
     image: mcr.microsoft.com/mssql/server
     #restart: unless-stopped
     container_name: mssqldb
-    hostname: mssql
+    #hostname: mssqldb
     environment:
-      SA_PASSWORD: ${DB_PASSWORD}
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD}
       ACCEPT_EULA: Y
     volumes:
-      - ./mssql-data/data:/var/opt/mssql/data
-      - ./mssql-data/log:/var/opt/mssql/log
+      - ./mssql-data:/var/opt/mssql
+      #- ./mssql-data/log:/var/opt/mssql/log
     networks:
       - net-db
     ports:

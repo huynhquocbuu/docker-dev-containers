@@ -7,8 +7,8 @@ services:
     networks:
       - net-app
     ports:
-      - 9080:80
-      - 9443:443
+      - 1080:80
+      - 10443:443
     volumes:
       - ./nginx-data/config:/etc/nginx/conf.d
       - ./nginx-data/html:/usr/share/nginx/html

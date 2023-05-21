@@ -14,9 +14,9 @@ services:
        - /var/run/docker.sock:/var/run/docker.sock:ro
        - ./portainer-data:/data 
     ports:
-      - 9444:9443
-      - 9083:8000
-      - 9084:9000
+      - 9443:9443
+      - 8000:8000
+      - 9000:9000
 
 networks:
   net-db:
